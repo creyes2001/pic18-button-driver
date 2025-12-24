@@ -19,13 +19,13 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
 ## Project Architecture
 
 -inc/
- -gpio.h        # GPIO HAL interface
- -button.h      # Button driver interface
- -config.h      # Configuration bits
+ -gpio.h       
+ -button.h     
+ -config.h     
 -src/
- -gpio.c        # GPIO HAL implementation
- -button.c     # Button driver (INT0 + debounce)
--main.c            # Application logic
+ -gpio.c       
+ -button.c     
+-main.c        
 -Makefile
 -build
 
