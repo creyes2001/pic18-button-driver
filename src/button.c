@@ -18,7 +18,7 @@ void button_init(void){
 gpio_init(&button, GPIO_INPUT);//config button pin as input
 INTCONbits.GIE = 1;//enable global interrupts
 INTCONbits.INT0IE = 1;//enable INT0	
-INTCON2bits.INTEDG0 = 1;//edge rising
+INTCON2bits.INTEDG0 = 0;//edge falling
 INTCONbits.INT0IF = 0;//clear flag
 }
 

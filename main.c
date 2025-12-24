@@ -1,7 +1,8 @@
 #include <xc.h>
 #include "button.h"
 #include "gpio.h"
-#define __XTAL_FREQ 20000000
+#define _XTAL_FREQ 20000000
+#include "config.h"
 
 gpio_t led = {
 	.tris = &TRISD,
@@ -14,8 +15,9 @@ void __interrupt() isr(void)
 {
 	if(INTCONbits.INT0IF)
 	{
-		button_isr_handler();
 		INTCONbits.INT0IF = 0;
+		button_isr_handler();
+
 	}
 }
 
@@ -26,13 +28,17 @@ int main(){
 
 	while(1)
 	{
-		button_process();
-
-		if(button_get_state() == BUTTON_PRESSED)
+		if(button_event_pending())
 		{
-			gpio_toggle(&led);
+			button_process();
+			
+
+			if(button_get_state() == BUTTON_PRESSED)
+			{
+				gpio_toggle(&led);
+				__delay_ms(500);
+			}
 		}
-		
 	}
 
 	return 1;
