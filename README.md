@@ -1,7 +1,6 @@
-#PIC18 GPIO HAL & Button Driver
+# PIC18 GPIO HAL & Button Driver
 
-##Overview
-
+## Overview
 This project implements a reusable, interrupt-safe GPIO Hardware Abstraction Layer (HAL) and a button driver using external using interrupts for the PIC18F4550 microcontroller.
 
 The goal is demostrate clean embedded firmware architecture, whit a strictseparation between:
@@ -9,7 +8,7 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
 -driver logic
 -application logic
 
-##Key Concepts Demostrated
+## Key Concepts Demostrated
 -GPIO abstraction using `gpio.h / gpio.c`
 -Safe register access (avoids Read-Modify-Write issues)
 -External interrupt handling (INT0)
@@ -17,7 +16,7 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
 -Minimal ISR design
 -Application logic independent of hardware registers
 
-##Project Architecture
+## Project Architecture
 .
 ├── inc/
 │   ├── gpio.h        # GPIO HAL interface
@@ -30,13 +29,13 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
 ├── Makefile
 ├── build
 
-##GPIO HAL Design
+## GPIO HAL Design
 -Output writes use LAT registers
 -Input reads use PORT registers
 -Shadow registers are used to prevent RMW hazards
 -No direct register access outside the HAL
 
-##Button Driver Design
+## Button Driver Design
 -Button connected to RB0/INT0
 -External interrupt triggers on falling edge
 -ISR only sets a software event flag
@@ -46,7 +45,7 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
  -`button_process()`
  -`button_get_state()`
 
-##Application Flow
+## Application Flow
 1. System initializes GPIO HAL and button driver
 2. A button press triggers the external interrupt (INT0)
 3. The ISR executes and sets a software event flag
@@ -54,13 +53,13 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
 5. Button debounce and state validation are processed in main context
 6. Application logic reacts to the validated button state
 
-##Build & Flash
+## Build & Flash
 ```
 make all
 makle flash
 ```
 
-##Target MCU
+## Target MCU
 -PIC18F4550
 -Compiler: XC8
 -Clock: 20 MHz
