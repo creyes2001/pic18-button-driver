@@ -1,7 +1,7 @@
 #include "button.h"
 #include <xc.h>
 
-static volatile uint8_t button_event_flag __attribute__((unused));
+static volatile uint8_t button_event_flag = 0;
 
 void button_init(void){ 
 TRISBbits.RB0 = 1;//config button pin as input
@@ -16,10 +16,9 @@ void button_isr_handler(void){
 }
 
 uint8_t button_event_pending(void){
-//TODO: logic
-return 0;
+	return button_event_flag;
 }
 
 void button_clear_event(void){
-//TODO: logic
+	button_event_flag = 0; 
 }
