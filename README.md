@@ -17,17 +17,17 @@ The goal is demostrate clean embedded firmware architecture, whit a strictsepara
 -Application logic independent of hardware registers
 
 ## Project Architecture
-.
-├── inc/
-│   ├── gpio.h        # GPIO HAL interface
-│   ├── button.h      # Button driver interface
-│   └── config.h      # Configuration bits
-├── src/
-│   ├── gpio.c        # GPIO HAL implementation
-│   └── button.c     # Button driver (INT0 + debounce)
-├── main.c            # Application logic
-├── Makefile
-├── build
+
+-inc/
+ -gpio.h        # GPIO HAL interface
+ -button.h      # Button driver interface
+ -config.h      # Configuration bits
+-src/
+ -gpio.c        # GPIO HAL implementation
+ -button.c     # Button driver (INT0 + debounce)
+-main.c            # Application logic
+-Makefile
+-build
 
 ## GPIO HAL Design
 -Output writes use LAT registers
