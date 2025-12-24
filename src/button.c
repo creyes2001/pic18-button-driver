@@ -6,9 +6,16 @@
 
 static volatile uint8_t button_event_flag = 0;
 static button_state_t button_state = 0;
+gpio_t button = {
+	.tris = &TRISB,
+	.lat = &LATB,
+	.port = &PORTB,
+	.pin = 0
+};
+
 
 void button_init(void){ 
-TRISBbits.RB0 = 1;//config button pin as input
+gpio_init(&button, GPIO_INPUT);//config button pin as input
 INTCONbits.GIE = 1;//enable global interrupts
 INTCONbits.INT0IE = 1;//enable INT0	
 INTCON2bits.INTEDG0 = 1;//edge rising
@@ -39,7 +46,7 @@ void button_process(void){
 		}
 
 		//confirm button still pressed
-		if(gpio_read(BUTTON_PORT,BUTTON_PIN) == 0)
+		if(gpio_read(&button) == 0)
 		{
 			button_state = BUTTON_PRESSED;
 		}
@@ -49,7 +56,7 @@ void button_process(void){
 		}
 	}
 }
-}
+
 
 button_state_t button_get_state(void){
 	return button_state;
