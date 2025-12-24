@@ -1,10 +1,11 @@
 #include "button.h"
+#include "gpio.h"
 #include <xc.h>
 
 #define DEBOUNCE_DELAY_MS 20
 
 static volatile uint8_t button_event_flag = 0;
-static button_state_t button_state __attribute__((unused));
+static button_state_t button_state = 0;
 
 void button_init(void){ 
 TRISBbits.RB0 = 1;//config button pin as input
@@ -15,7 +16,7 @@ INTCONbits.INT0IF = 0;//clear flag
 }
 
 void button_isr_handler(void){
-//TODO: logic
+	button_event_flag = 1;
 }
 
 uint8_t button_event_pending(void){
@@ -27,9 +28,29 @@ void button_clear_event(void){
 }
 
 void button_process(void){
-//TODO:logic
+	if(button_event_flag)
+	{
+		button_clear_event();
+
+		//crude debounce delay
+		for(volatile uint16_t i = 0; i < 3000; i++)
+		{
+			__asm("nop");
+		}
+
+		//confirm button still pressed
+		if(gpio_read(BUTTON_PORT,BUTTON_PIN) == 0)
+		{
+			button_state = BUTTON_PRESSED;
+		}
+		else
+		{
+			button_state = BUTTON_RELEASED;
+		}
+	}
+}
 }
 
 button_state_t button_get_state(void){
-//TODO:logic
+	return button_state;
 }

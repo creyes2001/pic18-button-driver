@@ -11,8 +11,11 @@ typedef enum{
 
 void button_init(void);
 void button_isr_handler(void);
+void button_process(void);
 uint8_t button_event_pending(void);
 void button_clear_event(void);
+button_state_t button_get_state(void);
+
 
 #endif
 

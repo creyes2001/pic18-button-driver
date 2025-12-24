@@ -14,5 +14,6 @@ void __interrupt() isr(void)
 
 int main(){
 	button_init();
+
 	return 1;
 }
